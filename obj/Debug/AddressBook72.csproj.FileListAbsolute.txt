@@ -1,0 +1,7 @@
+C:\Users\MY\source\repos\AddressBook72\AddressBook72\bin\Debug\AddressBook72.exe.config
+C:\Users\MY\source\repos\AddressBook72\AddressBook72\bin\Debug\AddressBook72.exe
+C:\Users\MY\source\repos\AddressBook72\AddressBook72\bin\Debug\AddressBook72.pdb
+C:\Users\MY\source\repos\AddressBook72\AddressBook72\obj\Debug\AddressBook72.csproj.AssemblyReference.cache
+C:\Users\MY\source\repos\AddressBook72\AddressBook72\obj\Debug\AddressBook72.csproj.CoreCompileInputs.cache
+C:\Users\MY\source\repos\AddressBook72\AddressBook72\obj\Debug\AddressBook72.exe
+C:\Users\MY\source\repos\AddressBook72\AddressBook72\obj\Debug\AddressBook72.pdb
