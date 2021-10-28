@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace AddressBook72
 {
@@ -11,12 +12,13 @@ namespace AddressBook72
         static void Main(string[] args)
         {
 
-            UC3AddressBook book = new UC3AddressBook(); // creating object of class
+            UC5AddressBook book = new UC5AddressBook(); // creating object of class
             string yes = "y";
             string y;
 
             do
             {
+
                 Console.WriteLine("Welcome to Address Book");
                 Console.WriteLine("1.AddNewContact\n2.ShowContact\n3.EditContact\n4.RmoveContact");
                 Console.WriteLine("\nEnter your choice");
@@ -27,38 +29,37 @@ namespace AddressBook72
                 {
 
                     case 1:
-                        Console.WriteLine("\nhow many contact you want to add");
+                        Console.WriteLine("how many contact you want to add:");
                         int n = Convert.ToInt32(Console.ReadLine());
                         for (int i = 0; i < n; i++)
                         {
                             book.GetContactDetails();
-                            Console.WriteLine("\n");    //through object accessing method 
-
                         }
                         break;
                     case 2:
-                        book.putDetails();
+                        book.ContactDetails();
                         break;
 
                     case 3:
-                        /// Edit Contact
                         book.editContact();
                         break;
 
                     case 4:
-                        /// Remove Contact
-                       // book.removeContact();
+                        book.removeContact();
                         break;
 
                     default:
                         break;
                 }
-                Console.WriteLine("do you want to continue? press...y/n");
+                Console.WriteLine("\ndo you want to continue? press...y/n");
                 y = Console.ReadLine();
 
-            } while (yes == y);
 
+            } while (yes == y);
             Console.ReadLine();
+
+
+
 
         }
     }
