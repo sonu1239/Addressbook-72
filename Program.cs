@@ -10,8 +10,13 @@ namespace AddressBook72
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Wellcome to AddressBook");
-            Console.ReadLine();
+
+            Console.WriteLine("Welcome to Address Book");
+
+            UC1AddressBook book = new UC1AddressBook(); // creating object of class
+
+            book.GetContactDetails();   //through object accessing method 
+            book.putDetails();
         }
     }
 }
