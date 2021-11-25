@@ -76,10 +76,12 @@ namespace AddressBook
                 AddressBook.ReadAddressBookUsingStreamReader();  // calling read method
                 AddressBook.CsvSerialise();
                 AddressBook.CsvDeserialise();
+                Person.JsonSearialize();
+                Person.JsonDeSerialize();
+
             }
 
         }
-
     }
 }
 
