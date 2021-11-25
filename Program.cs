@@ -12,55 +12,58 @@ namespace AddressBook72
         static void Main(string[] args)
         {
 
-            UC5AddressBook book = new UC5AddressBook(); // creating object of class
-            string yes = "y";
-            string y;
 
-            do
+            int num;
+            //guide to user 
+            Console.WriteLine("__Welcome to the address book program__");
+            Console.WriteLine();
+            Console.WriteLine("Enter the number of Address Books you want to add:");
+            Console.WriteLine();
+
+            int numAddBook = Convert.ToInt32(Console.ReadLine());          //taking user inputs about the number of add books needed
+            int numberBook = 0;
+            Console.WriteLine();
+            while (numberBook < numAddBook)                                //this while loop runs till the favourable no. of add books are created
             {
+                Console.WriteLine("Enter the name of the address book");
+                string book = Console.ReadLine();                         //taking the add book name as input
+                Console.WriteLine("Select the option that you would like to perform.");
+                Console.WriteLine();
+                //declaring address book object to be used in the below cases
+                AddressBook AddObj = new AddressBook();
+                string keyPress = "o";
 
-                Console.WriteLine("Welcome to Address Book");
-                Console.WriteLine("1.AddNewContact\n2.ShowContact\n3.EditContact\n4.RmoveContact");
-                Console.WriteLine("\nEnter your choice");
-                int ch = Convert.ToInt32(Console.ReadLine());
-
-
-                switch (ch)
+                while (keyPress != "n")
                 {
+                    Console.WriteLine("1- Add contact, 2- View contact,3-edit contact,4-delete contact");
+                    num = Convert.ToInt32(Console.ReadLine());
 
-                    case 1:
-                        Console.WriteLine("how many contact you want to add:");
-                        int n = Convert.ToInt32(Console.ReadLine());
-                        for (int i = 0; i < n; i++)
-                        {
-                            book.GetContactDetails();
-                        }
-                        break;
-                    case 2:
-                        book.ContactDetails();
-                        break;
+                    switch (num)               //switch case 
+                    {
+                        case 1:
+                            AddObj.AddContact();
+                            break;
 
-                    case 3:
-                        book.editContact();
-                        break;
+                        case 2:
+                            AddObj.View();
+                            break;
 
-                    case 4:
-                        book.removeContact();
-                        break;
+                        case 3:
+                            AddObj.Edit();
+                            break;
 
-                    default:
-                        break;
+                        case 4:
+                            AddObj.Delete();                                  //method to delete the contacts
+                            break;
+                    }
+                    Console.WriteLine("Do you wish to continue? Press (y/n)");
+                    keyPress = Console.ReadLine();
                 }
-                Console.WriteLine("\ndo you want to continue? press...y/n");
-                y = Console.ReadLine();
-
-
-            } while (yes == y);
-            Console.ReadLine();
-
-
-
-
+                AddressBook.AddTo(book);                         //calling the AddTo method to add the new address book in the dictionary
+                numberBook++;                                    //incrementing the variable
+            }
         }
+
     }
+    
 }
