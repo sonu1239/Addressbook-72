@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddressBook72
 {
+
     /// <summary>
     /// This is the main address book class that has all the methods defined in it.
     /// </summary>
@@ -51,6 +52,10 @@ namespace AddressBook72
 
                 //Addidng to the list
                 contact.Add(contactBook);
+            }
+            else
+            {
+                Console.WriteLine("This conatct already exists with firstname- " + contactBook.firstName);
             }
         }
 
@@ -159,7 +164,7 @@ namespace AddressBook72
                 var person = contact.Find(p => p.firstName.Equals(contactBook.firstName));       //using lambda and using the equals method
                 if (person != null)
                 {
-                    Console.WriteLine("Already this contact exist  with current first name -" + person.firstName);
+                    //Console.WriteLine("Already this contact exist  with current first name -" + person.firstName);
                     return 1;
                 }
                 else
@@ -222,8 +227,13 @@ namespace AddressBook72
                 string city = Detail.city;
                 if (cityBook.ContainsKey(city))
                 {
-                    List<Contacts> exist = cityBook[city];
-                    exist.Add(Detail);
+                    List<Contacts> exists = cityBook[city];
+                    int i = SearchDuplicate(exists, Detail);                   //uncluded this to avoid duplicies.
+                    if (i != 1)
+                    {
+                        exists.Add(Detail);
+                    }
+                    else { }
                 }
                 else
                 {
@@ -244,8 +254,12 @@ namespace AddressBook72
                 if (stateBook.ContainsKey(state))
                 {
                     List<Contacts> exists = stateBook[state];
-                    exists.Add(Detail);
-
+                    int i = SearchDuplicate(exists, Detail);                   //uncluded this to avoid duplicies.
+                    if (i != 1)
+                    {
+                        exists.Add(Detail);
+                    }
+                    else { }
                 }
                 else
                 {
@@ -276,7 +290,7 @@ namespace AddressBook72
                         foreach (var items in item.Value)
                         {
                             //this returns the variables that we have stored 
-                            Console.WriteLine("First Name -" + items.firstName);
+                            Console.WriteLine("\n First Name -" + items.firstName);
                             Console.WriteLine("Last Name -" + items.lastName);
                             Console.WriteLine("Address -" + items.address);
                             Console.WriteLine("Phone Number - " + items.phoneNumber);
@@ -329,5 +343,58 @@ namespace AddressBook72
                 Console.WriteLine("Wrong entry, Please choose between 1 and 2");
             }
         }
+        /// <summary>
+        /// Counts the by The number of person in each city or state
+        /// </summary>
+        public void CountBy()
+        {
+            Console.WriteLine("Select 1- count person by city, 2- Count person by state");                 //We have used this method to describe the people count by city or state
+            int num = Convert.ToInt32(Console.ReadLine());
+            void CountByCity()                       //method inside of a method
+            {
+                foreach (var item in cityBook)
+                {
+                    int count = item.Value.Count();
+                    Console.WriteLine("There are {0} number of people in City- {1}", count, item.Key);
+                }
+            }
+            void CountBystate()                //method insisde of a method
+            {
+                foreach (var item in stateBook)
+                {
+                    int count = item.Value.Count();
+                    Console.WriteLine("There are {0} number of people in City- {1}", count, item.Key);
+                }
+            }
+
+            if (num == 1)
+            {
+                if (cityBook.Count != 0)    //When there are atleast 1 entry
+                {
+                    CountByCity();
+                }
+                else
+                {
+                    Console.WriteLine("Currently no entries stored");
+                }
+            }
+            else if (num == 2)
+            {
+                if (stateBook.Count != 0)
+                {
+                    CountBystate();
+                }
+                else
+                {
+                    Console.WriteLine("Currently no entries stored");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid selection, please select between 1 and 2");
+            }
+
+
+        }       
     }
 }
