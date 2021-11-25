@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AddressBook72
+namespace AddressBook
 {
     public class Contacts
     {
@@ -16,5 +16,7 @@ namespace AddressBook72
         public string city { get; set; }
         public string state { get; set; }
         public string zip { get; set; }
+
+
     }
-}   
+}
