@@ -6,50 +6,54 @@ using System.Threading.Tasks;
 
 namespace AddressBook72
 {
+    /// <summary>
+    /// This is the main address book class that has all the methods defined in it.
+    /// </summary>
     class AddressBook
-    { //declaring a list with the class Contacts.
-        public static List<ContactDetails> contacts1 = new List<ContactDetails>();
-        //declaring dictionary with the already declared list inside of it as the value pair
-        public static Dictionary<string, List<ContactDetails>> addressBook = new Dictionary<string, List<ContactDetails>>();
+    {
+        //declaring a list with the class Contacts as the type
+        //declaring adictionary with the already declared list inside of it as the value pair
+        public static List<Contacts> contact = new List<Contacts>();
+        public static Dictionary<string, List<Contacts>> addressBook = new Dictionary<string, List<Contacts>>();
         //declaring it static so that we dont need to create an object in the program.cs
         public static void AddTo(string name)              //this method is used to pass the new address book name to the dictionary
         {
-            addressBook.Add(name, contacts1);
+            addressBook.Add(name, contact);
         }
-        public void AddContact()
+
+        public void AddAddress()
         {
-            //creating object of ContactDetails class
+            //creating a new object contactBook of the class Contacts to add addressess
+            Contacts contactBook = new Contacts();
+            Console.Write("Enter First Name - ");
+            contactBook.firstName = Console.ReadLine();
+            int check = SearchDuplicate(contact, contactBook);
+            //after enterring the first name, we check by invoking the Searchduplicate method and obtain the result in check variable.
+            if (check == 0)                //when its not duplicate. [0- no duplicate, 1- duplicate, no entry]
+            {
+                Console.Write("Enter Last Name - ");
+                contactBook.lastName = Console.ReadLine();
+                Console.Write("Enter Address - ");
+                contactBook.address = Console.ReadLine();
+                Console.Write("Enter Phone number - ");
+                contactBook.phoneNumber = Console.ReadLine();
+                Console.Write("Enter Email ID - ");
+                contactBook.email = Console.ReadLine();
+                Console.Write("Enter City - ");
+                contactBook.city = Console.ReadLine();
+                Console.Write("Enter State - ");
+                contactBook.state = Console.ReadLine();
+                Console.Write("Enter ZIP code - ");
+                contactBook.zip = Console.ReadLine();
 
-            ContactDetails contact = new ContactDetails();
-            Console.WriteLine("Enter First Name");
-            contact.firstName = Console.ReadLine();
-
-            Console.WriteLine("Enter Last Name");
-            contact.lastName = Console.ReadLine();
-
-            Console.WriteLine("Enter address Name");
-            contact.address = Console.ReadLine();
-
-            Console.WriteLine("Enter phone number");
-            contact.phoneNumber = Console.ReadLine();
-
-            Console.WriteLine("Enter email ID");
-            contact.email = Console.ReadLine();
-
-            Console.WriteLine("Enter city Name");
-            contact.city = Console.ReadLine();
-
-            Console.WriteLine("Enter state Name");
-            contact.state = Console.ReadLine();
-
-            Console.WriteLine("Enter zip");
-            contact.zip = Console.ReadLine();
-
-            contacts1.Add(contact);  //adding to the list
+                //Addidng to the list
+                contact.Add(contactBook);
+            }
         }
-        public void View()
+
+        public void View()                                              //this is  the method to view all the contacts stored currently
         {
-            if (contacts1.Count == 0)                                       // this if statement shows that there is nothing in the list
+            if (contact.Count == 0)                                       // this if statement shows that there is nothing in the list
             {
                 Console.WriteLine("Currently there are no people added in your addressbook.");
             }
@@ -57,28 +61,31 @@ namespace AddressBook72
             {
                 Console.WriteLine("Here is the list and details of all the contacts in your addressbook.");
 
-                foreach (var Detailing in contacts1)                  //this foreacch loops iterates through all the contacts objects in the contacts class
+                foreach (var Details in contact)                  //this foreacch loops iterates through all the contacts objects in the contacts class
                 {
-
-                    Console.WriteLine("first name = " + Detailing.firstName);
-                    Console.WriteLine("last name = " + Detailing.lastName);
-                    Console.WriteLine("address = " + Detailing.address);
-                    Console.WriteLine("state = " + Detailing.state);
-                    Console.WriteLine("city = " + Detailing.city);
-                    Console.WriteLine("zip no = " + Detailing.zip);
-                    Console.WriteLine("phone number = " + Detailing.phoneNumber);
-                    Console.WriteLine("email ID = " + Detailing.email);
+                    //this returns the variables that we have stored 
+                    Console.WriteLine("First Name -" + Details.firstName);
+                    Console.WriteLine("Last Name -" + Details.lastName);
+                    Console.WriteLine("Address -" + Details.address);
+                    Console.WriteLine("Phone Number - " + Details.phoneNumber);
+                    Console.WriteLine("Email ID -" + Details.email);
+                    Console.WriteLine("City -" + Details.city);
+                    Console.WriteLine("State -" + Details.state);
+                    Console.WriteLine("ZIP code -" + Details.zip);
+                    Console.WriteLine("-----------------------------------------------------------");
                 }
             }
+
         }
+
         public void Edit()                          //this method lets the user edit the details based on their firstname
         {
             Console.WriteLine("Enter the first name of the contact you want to Modify.");
             Console.WriteLine();
-            string fName = Console.ReadLine();      // taking the input of first name
-            foreach (var Details in contacts1)
+            string fname = Console.ReadLine();      // taking the input of first name
+            foreach (var Details in contact)
             {
-                if (fName == Details.firstName)
+                if (fname == Details.firstName)         //checking the equality of the first name
                 {
                     // below codes are similar to that of adding a contact.
                     Console.Write("Enter First Name - ");
@@ -106,20 +113,23 @@ namespace AddressBook72
                 }
             }
 
+
         }
+
+        //below method is for deleting the contact in the address book based on the search result of the firstname
         public void Delete()
         {
             Console.WriteLine("Enter the first name of the contact you want to Remove.");
             Console.WriteLine();
-            string fname = Console.ReadLine();      // take the input of first name
-            foreach (var Details in contacts1)
+            string fname = Console.ReadLine();      // taking the input of first name
+            foreach (var Details in contact)
             {
                 if (fname == Details.firstName)
                 {
-                    Console.WriteLine("Do you want to delete this Contact? (y/n).");
+                    Console.WriteLine("Are you sure you want to delete this Contact? (y/n).");
                     if (Console.ReadKey().Key == ConsoleKey.Y)
                     {
-                        contacts1.Remove(Details);
+                        contact.Remove(Details);
                         Console.WriteLine("\nContact is Deleted.");
                         break;
                     }
@@ -129,7 +139,33 @@ namespace AddressBook72
                     Console.WriteLine("Contact is not present.Please enter correct contact firstname.");
                 }
             }
+
         }
 
+        /// <summary>
+        /// Searches for duplicate name entry while entering in the addressbook
+        /// </summary>
+        /// <param name="contact">The contact.</param>
+        /// <param name="contactBook">The contact book.</param>
+        /// <returns></returns>
+        /// we are returning integer values which we check at add address method to check for duplicate entries.
+        public static int SearchDuplicate(List<Contacts> contact, Contacts contactBook)            //this method takes the list and contactbook object of contacts class
+        {
+            foreach (var Details in contact)                     //iterating through all the elements in contact list 
+            {
+                var person = contact.Find(p => p.firstName.Equals(contactBook.firstName));       //using lambda and using the equals method
+                if (person != null)
+                {
+                    Console.WriteLine("Already this contact exist  with current first name -" + person.firstName);
+                    return 1;
+                }
+                else
+                { //nothing to put in else block as we dont wanrt to insert here
+                    return 0;
+                }
+
+            }
+            return 0;
+        }
     }
 }
